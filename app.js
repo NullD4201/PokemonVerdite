@@ -1,10 +1,10 @@
-const tasks = [...document.querySelectorAll(".task-list [data-status]")];
-const completed = tasks.filter(task => task.dataset.status === "done").length;
-const active = tasks.filter(task => task.dataset.status === "active").length;
-const planned = tasks.filter(task => task.dataset.status === "planned").length;
-const percent = tasks.length ? Math.round(completed / tasks.length * 100) : 0;
+const goals = [...document.querySelectorAll(".release-goals [data-status]")];
+const completed = goals.filter(goal => goal.dataset.status === "done").length;
+const active = goals.filter(goal => goal.dataset.status === "active").length;
+const planned = goals.filter(goal => goal.dataset.status === "planned").length;
+const percent = goals.length ? Math.round(completed / goals.length * 100) : 0;
 
-document.getElementById("task-count").textContent = tasks.length;
+document.getElementById("goal-count").textContent = goals.length;
 document.getElementById("completed-count").textContent = completed;
 document.getElementById("active-count").textContent = active;
 document.getElementById("planned-count").textContent = planned;

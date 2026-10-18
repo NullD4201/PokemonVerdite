@@ -5,7 +5,8 @@ const vm = require("node:vm");
 
 const html = fs.readFileSync(path.join(__dirname, "index.html"), "utf8");
 const script = fs.readFileSync(path.join(__dirname, "app.js"), "utf8");
-const statuses = [...html.matchAll(/<li data-status="([^"]+)"/g)].map(match => match[1]);
+const releaseList = html.match(/<ul class="task-list release-goals">([\s\S]*?)<\/ul>/)[1];
+const statuses = [...releaseList.matchAll(/<li data-status="([^"]+)"/g)].map(match => match[1]);
 assert(statuses.every(status => ["done", "active", "planned"].includes(status)), "개발 상태를 확인하세요.");
 for (const asset of ["styles.css", "app.js", "favicon.svg", "assets/verdite-forest.png"]) {
   assert(fs.existsSync(path.join(__dirname, asset)), `${asset} 파일이 없습니다.`);
@@ -22,7 +23,8 @@ function render(values) {
   const document = {
     documentElement: { lang: "ko" },
     querySelectorAll: selector => ({
-      ".task-list [data-status]": values.map(status => ({ dataset: { status } })),
+      ".release-goals [data-status]": values.map(status => ({ dataset: { status } })),
+      ".task-list [data-status]": [...values, "done", "done"].map(status => ({ dataset: { status } })),
       "[data-en]": translations, "[data-en-label]": labels, "[data-language]": buttons,
     })[selector],
     getElementById: id => nodes[id],
@@ -32,8 +34,13 @@ function render(values) {
 }
 
 const { nodes: summary, document, translations, labels, buttons } = render(statuses);
-assert.equal(summary["task-count"].textContent, statuses.length);
+assert.equal(summary["goal-count"].textContent, statuses.length);
 assert.equal(summary["completed-count"].textContent + summary["active-count"].textContent + summary["planned-count"].textContent, statuses.length);
+assert.equal(statuses.length, 12, "출시 범위를 바꾸면 README의 기준과 함께 갱신하세요.");
+assert.equal(summary["completed-count"].textContent, 0);
+assert.equal(summary["active-count"].textContent, 4);
+assert.equal(summary["planned-count"].textContent, 8);
+assert.equal(summary["overall-progress"].value, 0, "부분 구현·문서·단일 에셋을 출시 목표 완료로 세면 안 됩니다.");
 assert.equal(render(["done", "active", "planned"]).nodes["overall-progress"].value, 33);
 assert.equal(render([]).nodes["overall-progress"].value, 0);
 assert.equal(render(["done", "done"]).nodes["overall-progress"].value, 100);
@@ -53,4 +60,4 @@ assert(translations.every(node => node.textContent === node.original));
 assert.equal(labels[0].getAttribute("aria-label"), "주 메뉴");
 assert.equal(buttons[0].attributes["aria-pressed"], "true");
 assert.equal(buttons[1].attributes["aria-pressed"], "false");
-console.log("통과: 정적 파일, 진행률 경계값, 한영 왕복 전환, 접근성 이름·선택 상태, 진행률 유지.");
+console.log("통과: 정적 파일, 출시 목표만 집계, 진행률 경계값, 한영 왕복 전환, 접근성 이름·선택 상태, 진행률 유지.");
