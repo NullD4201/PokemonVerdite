@@ -7,7 +7,7 @@ const html = fs.readFileSync(path.join(__dirname, "index.html"), "utf8");
 const script = fs.readFileSync(path.join(__dirname, "app.js"), "utf8");
 const statuses = [...html.matchAll(/<li data-status="([^"]+)"/g)].map(match => match[1]);
 assert(statuses.every(status => ["done", "active", "planned"].includes(status)), "개발 상태를 확인하세요.");
-for (const asset of ["styles.css", "app.js"]) {
+for (const asset of ["styles.css", "app.js", "favicon.svg", "assets/verdite-forest.png"]) {
   assert(fs.existsSync(path.join(__dirname, asset)), `${asset} 파일이 없습니다.`);
 }
 
@@ -20,9 +20,9 @@ function render(values) {
   return nodes;
 }
 
-const sample = render(statuses);
-assert.equal(sample["task-count"].textContent, statuses.length);
-assert.equal(sample["completed-count"].textContent + sample["active-count"].textContent + sample["planned-count"].textContent, statuses.length);
+const summary = render(statuses);
+assert.equal(summary["task-count"].textContent, statuses.length);
+assert.equal(summary["completed-count"].textContent + summary["active-count"].textContent + summary["planned-count"].textContent, statuses.length);
 assert.equal(render(["done", "active", "planned"])["overall-progress"].value, 33);
 assert.equal(render([])["overall-progress"].value, 0);
 assert.equal(render(["done", "done"])["overall-progress"].value, 100);

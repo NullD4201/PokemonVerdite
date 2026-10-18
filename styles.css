@@ -13,18 +13,24 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 .brand-caption { display: block; margin-top: 6px; color: var(--muted); font-size: 8px; letter-spacing: 1.5px; }
 nav { display: flex; align-items: center; gap: 30px; font-size: 13px; font-weight: 600; }
 .repo-link { border-left: 1px solid var(--line); padding-left: 30px; }
-.preview-note { display: flex; align-items: baseline; gap: 12px; margin-top: 22px; padding: 10px 14px; background: #eef0e7; border: 1px solid #e2e6d9; border-radius: 6px; color: #5d6757; font-size: 12px; }
-.preview-note > span { flex-shrink: 0; font-weight: 700; color: #3d5430; }
-.hero { display: grid; grid-template-columns: 1.13fr 1fr; align-items: center; gap: 68px; padding-block: 64px 80px; }
+.update-note { display: flex; align-items: baseline; gap: 12px; margin-top: 22px; padding: 10px 14px; background: #eef0e7; border: 1px solid #e2e6d9; border-radius: 6px; color: #5d6757; font-size: 12px; }
+.update-note > span { flex-shrink: 0; font-weight: 700; color: #3d5430; }
+.hero { display: grid; grid-template-columns: 1.13fr 1fr; align-items: center; gap: 44px; min-height: 460px; padding: 42px; margin-block: 28px 12px; border-radius: 16px; background: linear-gradient(90deg, rgba(8, 28, 20, .82), rgba(8, 28, 20, .28)), url("./assets/verdite-forest.png") center / cover; }
+.hero-copy { color: #f7f8ef; }
+.hero .intro { color: #e1e9d8; }
+.hero .live-dot { background: var(--green); }
+.hero .text-link { border-color: #c0d7a8; }
+.hero a:focus-visible { outline-color: var(--green); }
+.art-caption { margin-bottom: 56px; color: var(--muted); font-size: 10px; text-align: right; }
 .eyebrow { font-size: 10px; font-weight: 700; letter-spacing: 2px; }
 .hero-copy .eyebrow { display: flex; align-items: center; gap: 8px; }
 .live-dot { width: 7px; height: 7px; border-radius: 50%; background: #719754; }
 h1 { margin-block: 20px; font-size: clamp(34px, 4vw, 49px); line-height: 1.35; letter-spacing: -2.5px; font-weight: 750; }
 .intro { color: var(--muted); font-size: 14px; line-height: 1.9; }
 .text-link { display: inline-flex; gap: 24px; margin-top: 30px; padding-bottom: 5px; border-bottom: 1px solid #a2b29a; font-size: 13px; font-weight: 700; }
-.progress-panel { border-radius: 14px; background: var(--ink); color: #f6f7ec; padding: 28px 30px 22px; }
+.progress-panel { border: 1px solid #65816a; border-radius: 14px; background: rgba(25, 61, 50, .94); color: #f6f7ec; padding: 28px 30px 22px; }
 .panel-heading { display: flex; align-items: center; justify-content: space-between; gap: 12px; font-size: 13px; }
-.sample-tag { color: #cfdfc9; border: 1px solid #526b59; border-radius: 4px; font-size: 10px; padding: 1px 7px; }
+.phase-tag { color: #cfdfc9; border: 1px solid #526b59; border-radius: 4px; font-size: 10px; padding: 1px 7px; }
 .progress-number { display: flex; align-items: baseline; gap: 8px; margin: 8px 0 12px; color: var(--green); }
 .progress-number strong { font-size: 86px; font-weight: 500; letter-spacing: -5px; line-height: 1.2; font-variant-numeric: tabular-nums; }
 .progress-number > span { font-size: 25px; }
@@ -42,7 +48,8 @@ progress::-moz-progress-bar { background: var(--green); border-radius: 9px; }
 .section-heading .eyebrow { color: #6b7e62; margin-bottom: 6px; }
 h2 { font-size: 25px; font-weight: 700; letter-spacing: -1px; }
 .section-caption { color: var(--muted); font-size: 12px; }
-.development-grid { display: grid; grid-template-columns: 1fr 290px; gap: 32px; }
+.status-guide { margin: -8px 0 20px; color: var(--muted); font-size: 11px; }
+.development-grid { display: grid; grid-template-columns: 1fr 290px; align-items: start; gap: 32px; }
 .task-list { border-top: 1px solid #8a9b86; }
 .task-list li { display: flex; align-items: center; gap: 18px; min-height: 83px; padding: 16px 4px; border-bottom: 1px solid var(--line); }
 .task-index { flex-shrink: 0; align-self: start; margin-top: 2px; color: #7b8975; font-size: 11px; font-variant-numeric: tabular-nums; }
@@ -70,7 +77,7 @@ h2 { font-size: 25px; font-weight: 700; letter-spacing: -1px; }
 .sr-only, .skip-link:not(:focus) { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 .skip-link:focus { position: fixed; top: 8px; left: 8px; z-index: 1; padding: 10px 18px; background: white; }
 @media (max-width: 900px) {
-  .hero { gap: 30px; }
+  .hero { gap: 26px; padding: 28px; }
   .development-grid { grid-template-columns: 1fr 250px; gap: 24px; }
   .progress-panel { padding: 24px; }
 }
@@ -80,8 +87,9 @@ h2 { font-size: 25px; font-weight: 700; letter-spacing: -1px; }
   .brand { font-size: 20px; }
   nav { gap: 20px; font-size: 12px; }
   .repo-link { padding-left: 20px; }
-  .preview-note { align-items: start; font-size: 11px; }
-  .hero { grid-template-columns: 1fr; gap: 32px; padding-block: 40px 48px; }
+  .update-note { align-items: start; font-size: 11px; }
+  .hero { grid-template-columns: 1fr; gap: 32px; padding: 28px 20px; background-position: 45% center; }
+  .art-caption { text-align: left; margin-bottom: 36px; }
   h1 { font-size: 38px; letter-spacing: -2px; }
   .section-heading { align-items: start; flex-direction: column; gap: 6px; }
   .development-grid { grid-template-columns: 1fr; }
