@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="버다이트의 개발 진행 현황과 최근 개발 기록을 모아 보는 공간입니다.">
+  <meta name="theme-color" content="#163c31">
+  <title>버다이트 · 개발 기록</title>
+  <link rel="stylesheet" href="./styles.css">
+  <script src="./app.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">본문으로 바로가기</a>
+  <header class="site-header wrap">
+    <a class="brand" href="#" aria-label="버다이트 홈">
+      <svg viewBox="0 0 32 36" width="28" height="32" aria-hidden="true"><path d="m16 1 14 8v18l-14 8L2 27V9Z" fill="currentColor"/><path d="m8 11 8 17 8-17M8 11h16" fill="none" stroke="#eef5dc" stroke-width="2"/></svg>
+      <span>VERDITE<span class="brand-caption">DEVELOPMENT JOURNAL</span></span>
+    </a>
+    <nav aria-label="주 메뉴">
+      <a href="#development">진행 현황</a>
+      <a href="#journal">개발 기록</a>
+      <a class="repo-link" href="https://github.com/NullD4201/PokemonVerdite">GitHub <span aria-hidden="true">↗</span></a>
+    </nav>
+  </header>
+
+  <main id="main" class="wrap">
+    <div class="preview-note"><span>미리보기</span> 아래 개발 항목과 기록은 화면 구성을 위한 예시입니다. 실제 진행도는 추후 갱신합니다.</div>
+
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <p class="eyebrow"><span class="live-dot" aria-hidden="true"></span> PROJECT VERDITE</p>
+        <h1 id="hero-title">새로운 모험을<br>만들어가는 기록.</h1>
+        <p class="intro">버다이트의 작은 시작부터 다음 여정까지.<br>지금 만들고 있는 것과 앞으로의 계획을 공유합니다.</p>
+        <a class="text-link" href="#development">개발 현황 살펴보기 <span aria-hidden="true">↓</span></a>
+      </div>
+      <div class="progress-panel">
+        <div class="panel-heading"><span>개발 항목 완료율</span><span class="sample-tag">예시</span></div>
+        <div class="progress-number"><strong id="progress-value">—</strong><span>%</span></div>
+        <label class="sr-only" for="overall-progress">등록된 개발 항목의 완료 비율</label>
+        <progress id="overall-progress" max="100">진행률 계산 중</progress>
+        <div class="progress-caption"><span>한 걸음씩, 다음 마일스톤으로</span><span><b id="task-count">—</b>개 항목</span></div>
+        <dl class="stats">
+          <div><dt>완료</dt><dd id="completed-count">—</dd></div>
+          <div><dt>진행 중</dt><dd id="active-count">—</dd></div>
+          <div><dt>예정</dt><dd id="planned-count">—</dd></div>
+        </dl>
+        <p class="calculation-note">완료 항목 수 ÷ 전체 항목 수 · 게임 전체의 완성도를 뜻하지 않습니다.</p>
+      </div>
+    </section>
+
+    <section id="development" class="development" aria-labelledby="development-title">
+      <div class="section-heading"><div><p class="eyebrow">01 / DEVELOPMENT</p><h2 id="development-title">지금의 버다이트</h2></div><span class="section-caption">작은 단위로 만들고, 차근차근 쌓아갑니다.</span></div>
+      <div class="development-grid">
+        <!-- data-status: done(완료), active(진행 중), planned(예정). 상태를 바꿀 때 표시 문구도 함께 수정하세요. -->
+        <ul class="task-list">
+          <li data-status="done"><span class="task-index">01</span><div><h3>기본 플레이 기획</h3><p>핵심 플레이 흐름과 게임의 방향 정리</p></div><span class="status">완료</span></li>
+          <li data-status="done"><span class="task-index">02</span><div><h3>월드 구조 설계</h3><p>지역 구성과 탐험 동선의 기초 설계</p></div><span class="status">완료</span></li>
+          <li data-status="active"><span class="task-index">03</span><div><h3>이동과 탐험</h3><p>캐릭터 이동, 카메라와 필드 상호작용</p></div><span class="status">진행 중</span></li>
+          <li data-status="active"><span class="task-index">04</span><div><h3>전투 프로토타입</h3><p>기본 전투 흐름과 기술 사용 구현</p></div><span class="status">진행 중</span></li>
+          <li data-status="planned"><span class="task-index">05</span><div><h3>성장과 수집</h3><p>동료의 성장과 수집 경험 구체화</p></div><span class="status">예정</span></li>
+          <li data-status="planned"><span class="task-index">06</span><div><h3>저장과 불러오기</h3><p>모험의 기록을 보관하고 이어가기</p></div><span class="status">예정</span></li>
+        </ul>
+        <aside class="milestone" aria-labelledby="milestone-title">
+          <div class="milestone-top"><span class="eyebrow">NEXT MILESTONE</span><span aria-hidden="true">↗</span></div>
+          <span class="version">M / 01</span>
+          <h3 id="milestone-title">첫 번째 <br>플레이 가능한 빌드</h3>
+          <p>필드를 걷고, 동료를 만나고, 첫 전투를 경험하는 짧은 모험을 목표로 합니다.</p>
+          <div class="milestone-footer"><span>예시 목표</span><span>일정 미정</span></div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="journal" class="journal" aria-labelledby="journal-title">
+      <div class="section-heading"><div><p class="eyebrow">02 / DEV LOG</p><h2 id="journal-title">최근 개발 기록</h2></div><span class="section-caption">변화의 과정을 남깁니다.</span></div>
+      <ol class="log-list">
+        <li><time datetime="2026-10-18">2026.10.18</time><span class="log-category">탐험 · 예시</span><div><h3>모험의 첫걸음 다듬기</h3><p>필드 이동과 카메라의 기본 동작을 점검하고 있습니다.</p></div></li>
+        <li><time datetime="2026-10-17">2026.10.17</time><span class="log-category">기획 · 예시</span><div><h3>버다이트의 방향 정리</h3><p>기본 플레이 흐름과 첫 프로토타입의 범위를 정리했습니다.</p></div></li>
+      </ol>
+    </section>
+    <noscript><p class="preview-note">완료율 자동 계산에는 JavaScript가 필요합니다. 각 항목의 상태는 위 목록에서 확인할 수 있습니다.</p></noscript>
+  </main>
+
+  <footer class="site-footer wrap"><span>VERDITE <span class="footer-divider">/</span> 작은 변화가 모여, 하나의 모험으로.</span><a href="https://github.com/NullD4201/PokemonVerdite">프로젝트 저장소 <span aria-hidden="true">↗</span></a></footer>
+</body>
+</html>
