@@ -11,8 +11,10 @@ const areas = [...html.matchAll(/<li data-status="[^"]+">([\s\S]*?)<\/details>/g
   [...area[1].matchAll(/data-stage="([^"]+)" data-weight="([^"]+)"/g)].map(match => task(match[1], match[2])));
 const tasks = areas.flat();
 assert.equal(areas.length, 12);
-assert.equal(tasks.length, 70);
+assert.equal(tasks.length, 83);
 assert.equal(tasks.reduce((sum, item) => sum + Number(item.dataset.weight), 0), 1000);
+assert.deepEqual(areas.map(items => items.reduce((sum, item) => sum + Number(item.dataset.weight), 0)),
+  [40, 40, 100, 60, 300, 100, 180, 40, 50, 20, 40, 30], "세분화해도 각 영역의 계획 비중을 유지해야 합니다.");
 assert(tasks.every(item => ["planned", "implemented", "verified"].includes(item.dataset.stage) && Number(item.dataset.weight) > 0));
 for (const asset of ["styles.css", "app.js", "favicon.svg", "assets/verdite-forest.png"]) {
   assert(fs.existsSync(path.join(__dirname, asset)), asset + " 파일이 없습니다.");
@@ -54,13 +56,13 @@ function render(groups = areas, { saved = null, systemDark = false, blocked = fa
 
 const { nodes, document, translations, labels, buttons, goals } = render();
 assert.equal(nodes["goal-count"].textContent, 12);
-assert.equal(nodes["task-count"].textContent, 70);
-assert.equal(nodes["completed-count"].textContent, 6);
-assert.equal(nodes["active-count"].textContent, 6);
+assert.equal(nodes["task-count"].textContent, 83);
+assert.equal(nodes["completed-count"].textContent, 10);
+assert.equal(nodes["active-count"].textContent, 15);
 assert.equal(nodes["planned-count"].textContent, 58);
-assert.equal(nodes["overall-progress"].value, 3);
-assert.deepEqual(goals.map(goal => goal.children.progress.value), [12.5, 25, 0, 0, 0.3, 0, 0.6, 30, 0, 0, 0, 3.3]);
-assert.equal(goals.filter(goal => goal.dataset.status === "active").length, 6);
+assert.equal(nodes["overall-progress"].value, 5.5);
+assert.deepEqual(goals.map(goal => goal.children.progress.value), [12.5, 47.5, 6.5, 0, 0.3, 0, 0.6, 32.5, 0, 0, 21.3, 3.3]);
+assert.equal(goals.filter(goal => goal.dataset.status === "active").length, 8);
 
 const percent = items => render([items]).nodes["overall-progress"].value;
 assert.equal(percent([]), 0);
@@ -78,7 +80,7 @@ assert(translations.every(node => node.textContent === node.dataset.en));
 assert.equal(labels[0].getAttribute("aria-label"), "Area progress");
 assert.equal(buttons[1].attributes["aria-pressed"], "true");
 assert.equal(buttons[0].attributes["aria-pressed"], "false");
-assert.equal(nodes["overall-progress"].value, 3);
+assert.equal(nodes["overall-progress"].value, 5.5);
 buttons[0].click();
 assert(translations.every(node => node.textContent === node.original));
 assert.equal(document.documentElement.lang, "ko");
@@ -100,5 +102,5 @@ assert.equal(render(areas, { saved: dark.storage.value }).document.documentEleme
 const blocked = render(areas, { blocked: true, systemDark: true });
 blocked.nodes["theme-toggle"].click();
 assert.equal(blocked.document.documentElement.dataset.theme, "light");
-assert.equal(blocked.nodes["overall-progress"].value, 3);
-console.log("통과: 70개 작업·1,000점·3% 집계, 부분 진행·가중치·반올림 경계, 한영 전환, 테마 저장·복원·저장 차단.");
+assert.equal(blocked.nodes["overall-progress"].value, 5.5);
+console.log("통과: 83개 작업·1,000점·5.5% 집계, 영역 비중 유지, 부분 진행·가중치·반올림 경계, 한영 전환, 테마 저장·복원·저장 차단.");
